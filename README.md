@@ -1,4 +1,4 @@
-# Import Outlook contacts to your sipgate account
+# Convert SMS to audio files
 
 In this example project, we will convert SMS to audio using the [sipgateio](https://github.com/sipgate-io/sipgateio-node) library and [gTTS](https://www.npmjs.com/package/gtts).
 
