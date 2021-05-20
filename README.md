@@ -37,3 +37,11 @@ npm start
 ```
 
 You should now be able to convert your SMS.
+
+## Alternative text-to-speech packages
+
+In this example we used gTTS to convert our SMS, however you can choose and use any package you like. A short, non exhaustive list of open source options:
+
+- [eSpeak](http://espeak.sourceforge.net/)
+- [Mozilla TTS](https://github.com/mozilla/TTS)
+- [OpenSeq2Seq](https://github.com/NVIDIA/OpenSeq2Seq)
