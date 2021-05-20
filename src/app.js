@@ -1,7 +1,6 @@
 require("dotenv").config();
 const sipgate = require("./sipgate");
 const gTTS = require("gtts");
-const { FaxStatus } = require("sipgateio");
 const fs = require("fs");
 
 async function run() {
