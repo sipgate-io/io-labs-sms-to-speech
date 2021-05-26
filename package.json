@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "node src/app.js"
+    "start": "node src/app.js",
+    "format": "prettier --write src",
+    "lint": "eslint --fix src"
   },
   "author": "",
   "license": "ISC",
@@ -20,5 +22,13 @@
     "url": "https://github.com/sipgate-io/sms-to-speech-research-demo/issues"
   },
   "homepage": "https://github.com/sipgate-io/sms-to-speech-research-demo#readme",
-  "description": ""
+  "description": "",
+  "devDependencies": {
+    "eslint": "^7.27.0",
+    "eslint-config-standard": "^16.0.3",
+    "eslint-plugin-import": "^2.23.3",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^5.1.0",
+    "prettier": "^2.3.0"
+  }
 }
