@@ -1,36 +1,57 @@
-require("dotenv").config();
-const sipgate = require("./sipgate");
-const gTTS = require("gtts");
-const fs = require("fs");
+require('dotenv').config();
+const path = require('path');
+const sipgate = require('./sipgate');
+const GTTS = require('gtts');
+const fs = require('fs');
+
+const outputPath = path.join(__dirname, '/../output');
 
 async function run() {
-    const allSms = await sipgate.getSmsByDate(new Date(2021,1,1), new Date(2021,5,1));
+    createOutputPath();
+    const allSms = await sipgate.getSmsByDate(
+        new Date('2021-05-01'),
+        new Date('2021-05-31')
+    );
     const convertedIdList = [];
-    const smsContentList = allSms.filter(sms => {
-        if (convertedIdList.includes(sms.id)) {
-            return false;
-        }
-        return true;
-    }).map(sms => {
-        console.log(sms)
+    allSms
+        .filter((sms) => {
+            if (convertedIdList.includes(sms.id)) {
+                return false;
+            }
+            return true;
+        })
+        .forEach((sms, i) => {
+            convertedIdList.push(sms.id);
 
-        convertedIdList.push(sms.id);
+            const dateOptions = {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+            };
 
-        let dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-        let smsDate = sms.created.toLocaleString('de-DE', dateOptions)
+            const smsDate = sms.created.toLocaleString('de-DE', dateOptions);
+            const output = `Nachricht von: ${sms.sourceAlias} vom Datum: ${smsDate} mit dem Nachrichteninhalt: ${sms.smsContent}`;
+            
+            const gtts = new GTTS(output, 'de');
+            gtts.save(`${outputPath}/Sms_${i}.mp3`, function (err, result) {
+                if (err) {
+                    throw new Error(err);
+                }
+            });
 
-        return `Nachricht von: ${sms.sourceAlias} vom Datum: ${smsDate} mit dem Nachrichteninhalt: ${sms.smsContent}`
-    });
-
-    const outputPath = __dirname + '/../output'
-    console.log(smsContentList)
-    fs.mkdir(outputPath, function () {})
-    smsContentList.forEach((sms,i) => {
-        const gtts = new gTTS(sms, "de");
-        gtts.save(`${outputPath}/Sms_${i}.mp3`, function (err, result) {
-            if(err) { throw new Error(err) }
+            console.log(output);
         });
-    })
+}
+
+function createOutputPath() {
+    if (!fs.existsSync(outputPath)) {
+        fs.mkdir(outputPath, (err, result) => {
+            if (err) {
+                throw new Error(err);
+            }
+        });
+    }
 }
 
 run().catch(console.error);
