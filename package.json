@@ -4,8 +4,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node src/app.js",
-    "format": "prettier --write src",
-    "lint": "eslint --fix src"
+    "format": "prettier --write src && eslint --fix src"
   },
   "author": "",
   "license": "ISC",

@@ -12,6 +12,11 @@ async function run() {
     const startDate = '2021-05-01';
     const endDate = '2021-05-31';
 
+    if (!validateDate(startDate) || !validateDate(endDate)) {
+        console.log('Please provide all dates in ISO8601 format: YYYY-MM-DD');
+        return;
+    }
+
     const allSms = await sipgate.getSmsByDate(
         new Date(startDate),
         new Date(endDate)
@@ -59,6 +64,10 @@ function createOutputPath() {
             }
         });
     }
+}
+
+function validateDate(date) {
+    return date.match(/^(\d{4})-(\d{2})-(\d{2})$/);
 }
 
 run().catch(console.error);
