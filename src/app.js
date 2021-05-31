@@ -8,9 +8,13 @@ const outputPath = path.join(__dirname, '/../output');
 
 async function run() {
     createOutputPath();
+    
+    const startDate = '2021-05-01'
+    const endDate = '2021-05-31'
+
     const allSms = await sipgate.getSmsByDate(
-        new Date('2021-05-01'),
-        new Date('2021-05-31')
+        new Date(startDate),
+        new Date(endDate)
     );
     const convertedIdList = [];
     allSms
