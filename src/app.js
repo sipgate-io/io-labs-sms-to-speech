@@ -8,9 +8,14 @@ const outputPath = path.join(__dirname, '/../output');
 
 async function run() {
     createOutputPath();
-    
-    const startDate = '2021-05-01'
-    const endDate = '2021-05-31'
+
+    const startDate = '2021-05-01';
+    const endDate = '2021-05-31';
+
+    if (!validateDate(startDate) || !validateDate(endDate)) {
+        console.log('Please provide all dates in ISO8601 format: YYYY-MM-DD');
+        return;
+    }
 
     const allSms = await sipgate.getSmsByDate(
         new Date(startDate),
@@ -36,7 +41,7 @@ async function run() {
 
             const smsDate = sms.created.toLocaleString('de-DE', dateOptions);
             const output = `Nachricht von: ${sms.sourceAlias} vom Datum: ${smsDate} mit dem Nachrichteninhalt: ${sms.smsContent}`;
-            
+
             const gtts = new GTTS(output, 'de');
             gtts.save(`${outputPath}/Sms_${i}.mp3`, function (err, result) {
                 if (err) {
@@ -56,6 +61,10 @@ function createOutputPath() {
             }
         });
     }
+}
+
+function validateDate(date) {
+    return date.match(/^(\d{4})-(\d{2})-(\d{2})$/);
 }
 
 run().catch(console.error);
