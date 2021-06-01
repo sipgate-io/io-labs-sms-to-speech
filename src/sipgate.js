@@ -20,7 +20,7 @@ const getAllSms = async () => {
 const getSmsByDate = async (startDate, endDate) => {
     return await historyModule.fetchAll({
         types: 'SMS',
-        directions: [HistoryDirection.OUTGOING],
+        directions: [HistoryDirection.INCOMING],
         startDate: startDate,
         endDate: endDate,
     });

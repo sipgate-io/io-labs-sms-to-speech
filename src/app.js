@@ -10,7 +10,7 @@ async function run() {
     createOutputPath();
 
     const startDate = '2021-05-01';
-    const endDate = '2021-05-31';
+    const endDate = '2021-06-02';
 
     if (!validateDate(startDate) || !validateDate(endDate)) {
         console.log('Please provide all dates in ISO8601 format: YYYY-MM-DD');
