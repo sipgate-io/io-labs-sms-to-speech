@@ -28,7 +28,7 @@ npm install
 
 ## Execution
 
-Make sure to set the credentials of your sipgate account (token and token ID. See [Personal Access Token documentation](https://www.sipgate.io/rest-api/authentication#personalAccessToken) on sipgate.io) either in a `.env` file or by providing them as temporary environment variables at program execution:
+Make sure to set the credentials of your sipgate account (token and token ID with `scope: history`, see [Personal Access Token documentation](https://www.sipgate.io/rest-api/authentication#personalAccessToken) on sipgate.io) either in a `.env` file or by providing them as temporary environment variables at program execution:
 
 ```bash
 SIPGATE_TOKEN=<token> \

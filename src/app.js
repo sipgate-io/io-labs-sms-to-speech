@@ -17,18 +17,13 @@ async function run() {
         return;
     }
 
-    const allSms = await sipgate.getSmsByDate(
+    const allSmsByDate = await sipgate.getSmsByDate(
         new Date(startDate),
         new Date(endDate)
     );
     const convertedIdList = [];
-    allSms
-        .filter((sms) => {
-            if (convertedIdList.includes(sms.id)) {
-                return false;
-            }
-            return true;
-        })
+    allSmsByDate
+        .filter((sms) => !convertedIdList.includes(sms.id))
         .forEach((sms, i) => {
             convertedIdList.push(sms.id);
 
@@ -45,15 +40,19 @@ async function run() {
             );
             const output = `Nachricht von: ${sms.sourceAlias} vom Datum: ${smsDate} mit dem Nachrichteninhalt: ${sms.smsContent}`;
 
-            const gtts = new GTTS(output, 'de');
-            gtts.save(`${outputPath}/Sms_${i}.mp3`, function (err, result) {
-                if (err) {
-                    throw new Error(err);
-                }
-            });
+            convertToSpeech(output, `${outputPath}/Sms_${i}.mp3`);
 
             console.log(output);
         });
+}
+
+function convertToSpeech(text, path){
+    const gtts = new GTTS(text, 'de');
+    gtts.save(path, function (err, result) {
+        if (err) {
+            throw new Error(err);
+        }
+    });
 }
 
 function createOutputPath() {
