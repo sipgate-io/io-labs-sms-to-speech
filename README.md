@@ -1,12 +1,12 @@
 # Convert SMS to audio files
 
-In this example project, we will convert SMS to audio using the [sipgateio](https://github.com/sipgate-io/sipgateio-node) library and [gTTS](https://www.npmjs.com/package/gtts).
+In this example project, we will convert SMS to audio using the [sipgate.io node library](https://github.com/sipgate-io/sipgateio-node) library and [gTTS](https://www.npmjs.com/package/gtts).
 
 ## What is sipgate.io?
 
 [sipgate.io](https://www.sipgate.io/) is a collection of APIs, which enables sipgate's customers to build flexible integrations matching their individual needs.
 Among other things, it provides interfaces for sending and receiving text messages or faxes, monitoring the call history, as well as initiating and manipulating calls.
-In this tutorial, we will use sipgate.io's contact API to import contacts from your company's Microsoft Outlook address book.
+In this tutorial, we will use sipgate.io's history API to read incoming SMS text messages from your sipgate account.
 
 ## In this example
 
